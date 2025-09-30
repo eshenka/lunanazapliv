@@ -54,6 +54,14 @@ input, select {
     box-sizing: border-box;
 }
 
+/* Smaller, centered inputs for age and duration */
+.age-input, .duration-input {
+    width: 80px;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+}
+
 input:focus, select:focus {
     border-color: #0078d4;
     outline: none;
