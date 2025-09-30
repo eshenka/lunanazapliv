@@ -55,10 +55,35 @@ input, select {
 }
 
 .age-input, .duration-input {
-    width: 85px;
+    width: 90px;
     text-align: center;
     margin: 0 auto;
     display: block;
+}
+
+.age-input::-webkit-outer-spin-button,
+.age-input::-webkit-inner-spin-button,
+.duration-input::-webkit-outer-spin-button,
+.duration-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.age-input[type=number],
+.duration-input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.skill-select {
+    padding-right: 30px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 9px center;
+    background-size: 20px 20px;
 }
 
 input:focus, select:focus {
