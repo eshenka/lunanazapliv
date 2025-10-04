@@ -34,20 +34,31 @@ function getInstruction(swimmer) {
 
 function makeDistribution(distribution) {
     let result = '';
+    const escorts = [];
+    const wards = [];
     
+    // Build the main distribution and collect names
     for (const [escort, first, second] of distribution) {
         result += `${escort.name}: `;
+        escorts.push(escort.name);
         
         if (first) {
             result += getInstruction(first);
+            wards.push(first.name);
         }
         
         if (second) {
             result += `, ${getInstruction(second)}`;
+            wards.push(second.name);
         }
         
         result += '<br>';
     }
+    
+    // Add summary rows
+    result += '<br>';
+    result += `Сопровождающие: ${escorts.join(', ')}<br>`;
+    result += `Подопечные: ${wards.join(', ')}`;
     
     return result;
 }
