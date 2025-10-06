@@ -20,7 +20,7 @@ function getInstruction(swimmer) {
             instruction = swimmer.duration < 55 ? "во рту до дна" : "во рту до дна и обратно";
             break;
         case 6:
-            instruction = swimmer.duration < 55 ? "во ртудо глубины и обратно" : "3 нырка,во рту до глубины и обратно";
+            instruction = swimmer.duration < 55 ? "во рту до глубины и обратно" : "3 нырка, во рту до глубины и обратно";
             break;
         case 5:
             instruction = swimmer.duration < 55 ? "3 нырка, во рту до глубины и обратно" : "2 нырка, во рту до глубины и обратно";
