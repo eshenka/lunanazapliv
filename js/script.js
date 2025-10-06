@@ -14,16 +14,16 @@ function getInstruction(swimmer) {
     switch (swimmer.skill) {
         case 8:
         case 9:
-            instruction = swimmer.duration < 60 ? "сам" : "до дна и обратно";
+            instruction = swimmer.duration < 60 ? "самостоятельно" : "во рту до дна и обратно";
             break;
         case 7:
-            instruction = swimmer.duration < 55 ? "до дна" : "до дна и обратно";
+            instruction = swimmer.duration < 55 ? "во рту до дна" : "во рту до дна и обратно";
             break;
         case 6:
-            instruction = swimmer.duration < 55 ? "до глубины и обратно" : "3 нырка, до глубины и обратно";
+            instruction = swimmer.duration < 55 ? "во ртудо глубины и обратно" : "3 нырка,во рту до глубины и обратно";
             break;
         case 5:
-            instruction = swimmer.duration < 55 ? "3 нырка, до глубины и обратно" : "2 нырка, до глубины и обратно";
+            instruction = swimmer.duration < 55 ? "3 нырка, во рту до глубины и обратно" : "2 нырка, во рту до глубины и обратно";
             break;
         default:
             instruction = "неизвестно";
