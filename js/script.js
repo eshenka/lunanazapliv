@@ -37,7 +37,6 @@ function makeDistribution(distribution) {
     const escorts = [];
     const wards = [];
     
-    // Build the main distribution and collect names
     for (const [escort, first, second] of distribution) {
         result += `${escort.name}: `;
         escorts.push(escort.name);
@@ -55,7 +54,6 @@ function makeDistribution(distribution) {
         result += '<br>';
     }
     
-    // Add summary rows
     result += '<br>';
     result += `Сопровождающие: ${escorts.join(', ')}<br>`;
     result += `Подопечные: ${wards.join(', ')}`;
@@ -67,7 +65,6 @@ function createDistribution(swimmers) {
     const escorts = [];
     const wards = [];
     
-    // Separate escorts and wards
     for (const swimmer of swimmers) {
         if (swimmer.skill > 7 && swimmer.duration < 60) {
             escorts.push(swimmer);
@@ -76,7 +73,6 @@ function createDistribution(swimmers) {
         }
     }
     
-    // Validation checks
     if (escorts.length * 2 < wards.length) {
         return {
             success: false,
@@ -91,7 +87,6 @@ function createDistribution(swimmers) {
         };
     }
     
-    // Sort arrays
     escorts.sort((a, b) => {
         if (a.age !== b.age) return b.age - a.age;
         if (a.skill !== b.skill) return b.skill - a.skill;
@@ -107,7 +102,6 @@ function createDistribution(swimmers) {
     let escortsCounter = 0;
     const distribution = [];
     
-    // Initialize distribution with escorts
     for (const escort of escorts) {
         distribution.push([escort, null, null]);
     }
@@ -115,7 +109,6 @@ function createDistribution(swimmers) {
     const wardsAmount = wards.length;
     const escortsAmount = escorts.length;
     
-    // Assign wards to escorts
     if (wardsAmount > 0) {
         for (let wardCounter = 0; wardCounter < wardsAmount; wardCounter++) {
             if (escorts[escortsCounter].age > wards[wardCounter].age) {
@@ -152,7 +145,6 @@ function createDistribution(swimmers) {
         }
     }
     
-    // Count free escorts
     let freeEscorts = 0;
     for (const escort of distribution) {
         if (escort[1] === null) {
@@ -160,7 +152,6 @@ function createDistribution(swimmers) {
         }
     }
     
-    // Handle single free escort
     if (freeEscorts === 1) {
         if (distribution[escortsAmount - 2][2] === null) {
             distribution[escortsAmount - 2][2] = escorts[escortsAmount - 1];
@@ -178,7 +169,6 @@ function createDistribution(swimmers) {
         }
     }
     
-    // Handle multiple free escorts
     let smallEscortsAmount = Math.floor(freeEscorts / 3);
     if (freeEscorts % 3 !== 0) {
         smallEscortsAmount++;
@@ -240,26 +230,22 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded');
     
     const tableBody = document.getElementById('tableBody');
-    let rowCounter = 0; // Start with 0 for the existing row
+    let rowCounter = 0; 
     
-    // Add delete button to the first row
     const firstRow = tableBody.querySelector('tr');
     console.log('First row found:', firstRow);
     
     if (firstRow) {
-        addDeleteButton(firstRow); // Make sure this executes
+        addDeleteButton(firstRow);
         console.log('Delete button added to first row');
     }
     
-    // Function to add delete button to a row
     function addDeleteButton(row) {
-        // Create a cell for the delete button
         const deleteCell = document.createElement('td');
         deleteCell.className = 'action-cell';
         
-        // Create the delete button
         const deleteButton = document.createElement('button');
-        deleteButton.innerHTML = '&times;';  // HTML entity for × (multiplication sign)
+        deleteButton.innerHTML = '&times;';
         deleteButton.className = 'delete-button';
         deleteButton.type = 'button';
         deleteButton.title = 'Delete row';
@@ -288,7 +274,6 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Delete button cell added to row');
     }
     
-    // Function to add a new row
     function addNewRow() {
         rowCounter++;
         const newRow = document.createElement('tr');
@@ -311,18 +296,15 @@ document.addEventListener('DOMContentLoaded', function() {
         
         tableBody.appendChild(newRow);
         
-        // Remove any validation attributes from the new inputs
         const newInputs = newRow.querySelectorAll('input, select');
         newInputs.forEach(input => {
             input.removeAttribute('required');
             input.setAttribute('novalidate', '');
         });
         
-        // Add delete button to the new row
         addDeleteButton(newRow);
     }
     
-    // Create the "Add Row" button
     const buttonContainer = document.querySelector('.button-container');
     console.log('Button container found:', buttonContainer);
     
@@ -335,7 +317,6 @@ document.addEventListener('DOMContentLoaded', function() {
         addNewRow();
     });
     
-    // Insert the Add Row button before the submit button
     if (buttonContainer && buttonContainer.firstChild) {
         buttonContainer.insertBefore(addRowButton, buttonContainer.firstChild);
         console.log('Add row button inserted');
@@ -344,13 +325,11 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Add row button appended');
     }
 
-    // Make sure all inputs have required attribute removed
     const allInputs = document.querySelectorAll('input, select');
     allInputs.forEach(input => {
         input.removeAttribute('required');
     });
 
-    // Add form submission handling
     const form = document.getElementById('swimmingForm');
 
     function cleanupEmptyRows() {
@@ -363,7 +342,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Make sure we have at least one row
         if (tableBody.children.length === 0) {
             addNewRow();
         }
@@ -384,7 +362,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const skill = parseInt(skillSelect.value);
             const duration = parseInt(durationInput.value);
             
-            // Only add swimmer if all fields are filled
             if (name && !isNaN(age) && !isNaN(skill) && !isNaN(duration)) {
                 swimmers.push(new Swimmer(name, age, skill, duration));
             }
