@@ -20,6 +20,15 @@ h1 {
     margin-bottom: 25px;
 }
 
+/* Version badge shown near the top of the page */
+.version-badge, #version {
+    float: right;
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 6px;
+    font-weight: 600;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;

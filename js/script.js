@@ -118,13 +118,32 @@ function createDistribution(swimmers) {
                     distribution[escortsCounter][2] = wards[wardCounter];
                 } else {
                     if (escortsCounter === 0) {
-                        return {
+                        let success = false;
+                        for (let escorts_again = 0; escorts_again < escortsAmount; escorts_again++) {
+                            if (escorts[escorts_again].age < wards[wardCounter].age) {
+                                break;
+                            }
+
+                            if (distribution[escorts_again][1] === null) {
+                                success = true;
+                                distribution[escorts_again][1] = wards[wardCounter];    
+                            } else if (distribution[escorts_again][2] === null) {
+                                success = true;
+                                distribution[escorts_again][2] = wards[wardCounter];
+                            } else {
+                                continue
+                            }
+                        }
+
+                        if (!success) {
+                            return {
                             success: false,
-                            message: `Невозможно распределить! Найдите кого-то старше ${wards[wardCounter].age} лун`
-                        };
+                            message: `Невозможно распределить! Найдите кого-то старше ${wards[wardCounter].age} лун escortsAmount= ${escortsAmount}`
+                        }};
                     } else {
                         escortsCounter--;
                         wardCounter--;
+
                         continue;
                     }
                 }
@@ -153,8 +172,19 @@ function createDistribution(swimmers) {
     }
     
     if (freeEscorts === 1) {
-        if (distribution[escortsAmount - 2][2] === null) {
-            distribution[escortsAmount - 2][2] = escorts[escortsAmount - 1];
+        let success = false;
+
+        for (cnt = 0; cnt < escortsAmount; cnt++) {
+            if (escorts[cnt].age > escorts[escortsAmount - 1].age) {
+                if (distribution[cnt][2] === null) {
+                    success = true;
+                    distribution[cnt][2] = escorts[escortsAmount - 1];
+                    break;
+                }
+            }
+        }
+
+        if (success) {
             distribution.splice(escortsAmount - 1, 1);
             
             return {
@@ -189,10 +219,29 @@ function createDistribution(swimmers) {
                 distribution[newEscortsCounter][2] = escorts[escortsToWardsCounter];
             } else {
                 if (newEscortsCounter === escortsAmount - freeEscorts) {
-                    return {
-                        success: false,
-                        message: `Невозможно распределить! Найдите кого-то старше ${escorts[escortsToWardsCounter].age} лун`
-                    };
+
+                    let success = false;
+                    for (let escorts_again = 0; escorts_again < smallEscortsAmount; escorts_again++) {
+                        if (escorts[escorts_again+start].age < escrots[escortsToWardsCounter].age) {
+                            break;
+                        }
+
+                        if (distribution[escorts_again+start][1] === null) {
+                            success = true;
+                            distribution[escorts_again+start][1] = escorts[escortsToWardsCounter];    
+                        } else if (distribution[escorts_again+start][2] === null) {
+                            success = true;
+                            distribution[escorts_again+start][2] = escorts[escortsToWardsCounter];
+                        } else {
+                            continue
+                        }
+                    }
+
+                    if (!success) {
+                        return {
+                            success: false,
+                            message: `Невозможно распределить! Найдите кого-то старше ${escorts[escortsToWardsCounter].age} лун`
+                        }};
                 } else {
                     newEscortsCounter--;
                     escortsToWardsCounter--;
